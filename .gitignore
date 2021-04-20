@@ -1,0 +1,8 @@
+.vscode
+*.DS_Store*
+*.o
+*.d
+*.hex
+*.map
+build/*
+*.jdebug*
