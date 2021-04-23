@@ -1,0 +1,23 @@
+{
+    "mac": "FD-0F-46-7B-51-03",
+    "major0": 10092,
+    "minor0": 33211,
+    "txPower0": 50,
+    "rssi0": -123,
+    "major1": 10092,
+    "minor1": 33320,
+    "txPower1": 49,
+    "rssi1": -111,
+    "major2": 10092,
+    "minor2": 33252,
+    "txPower2": 48,
+    "rssi2": -99,
+    "major3": 10092,
+    "minor3": 33305,
+    "txPower3": 51,
+    "rssi3": -68,
+    "major4": 10092,
+    "minor4": 33306,
+    "txPower4": 51,
+    "rssi4": -68
+}
