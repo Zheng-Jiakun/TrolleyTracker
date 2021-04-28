@@ -6,3 +6,4 @@
 *.map
 build/*
 *.jdebug*
+ses/Output/*
