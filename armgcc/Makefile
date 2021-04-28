@@ -2,12 +2,12 @@ PROJECT_NAME     := ble_app_rscs_c_pca10040_s132
 TARGETS          := nrf52832_xxaa
 OUTPUT_DIRECTORY := build
 
-SDK_ROOT := ./sdk
-PROJ_DIR := .
-CONFIG_DIR := ./config
+SDK_ROOT := ../sdk
+PROJ_DIR := ../
+CONFIG_DIR := ../config
 
 $(OUTPUT_DIRECTORY)/nrf52832_xxaa.out: \
-  LINKER_SCRIPT  := ble_app_rscs_c_gcc_nrf52.ld
+  LINKER_SCRIPT  := trolley_tracker.ld
 
 # Source files common to all targets
 SRC_FILES += \

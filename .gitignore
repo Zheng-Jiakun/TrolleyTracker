@@ -4,6 +4,8 @@
 *.d
 *.hex
 *.map
-build/*
-*.jdebug*
+armgcc/build/*
+armgcc/*.jdebug*
+
 ses/Output/*
+ses/*.jlink
