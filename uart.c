@@ -64,3 +64,13 @@ void uart_init(void)
 
     //printf("UART started.\r\n");
 }
+
+void uart_clear_rx_buf (void)
+{
+    memset(uart_rx.string, '\0', UART_RX_BUF_SIZE);
+}
+
+uint8_t *uart_get_rx_string (void)
+{
+    return uart_rx.string;
+}

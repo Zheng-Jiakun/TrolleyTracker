@@ -1,9 +1,14 @@
 #include "beacon_scanner.h"
 #include "uart.h"
+#include "ESP8266.h"
 
+#include "nrf_pwr_mgmt.h"
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
+#include "peer_manager.h"
+#include "peer_manager_handler.h"
+#include "app_timer.h"
 
 
 /**@brief Function for initializing logging. */
@@ -64,21 +69,23 @@ int main(void)
     //NRF_LOG_RAW_INFO(	 "| Beacon scanner |");
     //NRF_LOG_RAW_INFO("\r\n ----------------\r\n");
 
-    printf("Beacon Scanner\n");
+    //printf("Beacon Scanner\n");
     
-    //ESP_init();
-    //bsp_board_led_on(BSP_BOARD_LED_0);
+    //ESP_connect_WIFI();
+    bsp_board_led_on(BSP_BOARD_LED_0);
 
     scan_start();
     bsp_board_led_on(BSP_BOARD_LED_1);
 
+    //ESP_connect_MQTT();
+    bsp_board_led_on(BSP_BOARD_LED_2);
+
 
     while(1)
     {
-        //ESP_send();
-        //bsp_board_led_invert(BSP_BOARD_LED_4);
-        //memcpy(&beacon, &beacon_reset, sizeof(beacon));
-        //nrf_delay_ms(1000);
-        idle_state_handle();
+        //ESP_send_beacon();
+        bsp_board_led_invert(BSP_BOARD_LED_3);
+        nrf_delay_ms(1000);
+        //idle_state_handle();
     }
 }

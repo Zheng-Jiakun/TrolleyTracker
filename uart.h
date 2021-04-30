@@ -32,5 +32,7 @@ typedef struct
 } uart_rx_string_t;
 
 void uart_init(void);
+void uart_clear_rx_buf (void);
+uint8_t *uart_get_rx_string (void);
 
 #endif

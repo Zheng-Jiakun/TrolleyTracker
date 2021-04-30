@@ -106,7 +106,7 @@
       </file>
       <file file_name="../beacon_scanner.c" />
       <file file_name="../ESP8266.c">
-        <configuration Name="Debug" build_exclude_from_build="Yes" />
+        <configuration Name="Debug" build_exclude_from_build="No" />
       </file>
     </folder>
     <folder Name="nRF_Segger_RTT">

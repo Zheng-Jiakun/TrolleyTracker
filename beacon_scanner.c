@@ -48,7 +48,7 @@ ble_gap_scan_params_t m_scan_param =                 /**< Scan parameters reques
 //};
 
 
- beacon_t beacon_reset[BEACON_NUM] = {{0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}};
+ const beacon_t beacon_reset[BEACON_NUM] = {{0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}};
  beacon_t beacon[BEACON_NUM] = {{0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}};
 
  int8_t find_min_rssi (beacon_t *beacon, uint8_t *min_index)
@@ -187,11 +187,11 @@ void scan_start(void)
     ret_code_t err_code;
 
     // If there is any pending write to flash, defer scanning until it completes.
-    if (nrf_fstorage_is_busy(NULL))
-    {
-        m_memory_access_in_progress = true;
-        return;
-    }
+    //if (nrf_fstorage_is_busy(NULL))
+    //{
+    //    m_memory_access_in_progress = true;
+    //    return;
+    //}
 
     err_code = nrf_ble_scan_start(&m_scan);
     APP_ERROR_CHECK(err_code);
@@ -251,3 +251,12 @@ void ble_stack_init(void)
     NRF_SDH_SOC_OBSERVER(m_soc_observer, APP_SOC_OBSERVER_PRIO, soc_evt_handler, NULL);
 }
 
+void reset_beacon_info(void)
+{
+    memcpy(&beacon, &beacon_reset, sizeof(beacon));
+}
+
+beacon_t* get_beacon_info(void)
+{
+    return beacon;
+}
