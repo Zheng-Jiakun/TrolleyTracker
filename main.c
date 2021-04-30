@@ -1,4 +1,5 @@
 #include "beacon_scanner.h"
+#include "uart.h"
 
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
@@ -49,21 +50,21 @@ static void idle_state_handle(void)
 int main(void)
 {
     // Initialize.
-    log_init();
+    //log_init();
     //timer_init();
     power_management_init();
     ble_stack_init();
     scan_init();
 
     bsp_board_init(BSP_INIT_LEDS);
-    //uart_init();
+    uart_init();
 
     // Start execution.
-    NRF_LOG_RAW_INFO(    " ----------------\r\n");
-    NRF_LOG_RAW_INFO(	 "| Beacon scanner |");
-    NRF_LOG_RAW_INFO("\r\n ----------------\r\n");
+    //NRF_LOG_RAW_INFO(  " ----------------\r\n");
+    //NRF_LOG_RAW_INFO(	 "| Beacon scanner |");
+    //NRF_LOG_RAW_INFO("\r\n ----------------\r\n");
 
-    //printf("Beacon Scanner\n");
+    printf("Beacon Scanner\n");
     
     //ESP_init();
     //bsp_board_led_on(BSP_BOARD_LED_0);
@@ -71,8 +72,8 @@ int main(void)
     scan_start();
     bsp_board_led_on(BSP_BOARD_LED_1);
 
-    // Enter main loop.
-    for (;;)
+
+    while(1)
     {
         //ESP_send();
         //bsp_board_led_invert(BSP_BOARD_LED_4);

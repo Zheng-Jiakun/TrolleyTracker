@@ -48,8 +48,8 @@ ble_gap_scan_params_t m_scan_param =                 /**< Scan parameters reques
 //};
 
 
- beacon_t beacon[BEACON_NUM] = {0, 0, 0, -128, 0, 0, 0, -128, 0, 0, 0, -128, 0, 0, 0, -128,};
- beacon_t beacon_reset[BEACON_NUM] = {0, 0, 0, -128, 0, 0, 0, -128, 0, 0, 0, -128, 0, 0, 0, -128,};
+ beacon_t beacon_reset[BEACON_NUM] = {{0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}};
+ beacon_t beacon[BEACON_NUM] = {{0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}};
 
  int8_t find_min_rssi (beacon_t *beacon, uint8_t *min_index)
  {
