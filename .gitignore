@@ -2,7 +2,6 @@
 *.DS_Store*
 *.o
 *.d
-*.hex
 *.map
 armgcc/build/*
 armgcc/*.jdebug*
