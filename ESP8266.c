@@ -2,25 +2,57 @@
 #include "uart.h"
 #include "beacon_scanner.h"
 
+esp_state_t ESP_send_command (const uint8_t* cmd)
+{
+    esp_state_t esp_state;
+    static uint32_t start_tick;
+    static bool wait_flag = false;
+    if (wait_flag == false)
+    {
+        printf(cmd);
+        start_tick = app_timer_cnt_get();
+        wait_flag = true;
+        esp_state = ESP_WAIT;
+    }
+    else if (strcmp(uart_get_rx_string(), ESP_RESPONSE) == 0)
+    {
+        wait_flag = false;
+        start_tick = 0;
+        uart_clear_rx_buf();
+        esp_state = ESP_OK;
+    }
+    else if (app_timer_cnt_get() - start_tick > APP_TIMER_TICKS(ESP_TIMEOUT_MS))
+    {
+        wait_flag = false;
+        start_tick = 0;
+        esp_state = ESP_TIMEOUT;
+    }
+    else
+    {
+        esp_state = ESP_WAIT;
+    }
+    return esp_state;
+}
+
 void ESP_connect_WIFI(void)
 {
     printf("AT+CWMODE=1\r\n");  //AT+CWMODE=1
-    while(strcmp(uart_get_rx_string(), ESP_OK));
+    while(strcmp(uart_get_rx_string(), ESP_RESPONSE));
     uart_clear_rx_buf();
     
     printf("AT+CWJAP=\"%s\",\"%s\"\r\n", WIFI_SSID, WIFI_PASSWORD);  //AT+CWJAP="ISD4223","1234567abc"  Thunderbolt, fuckrobomaster
-    while(strcmp(uart_get_rx_string(), ESP_OK));
+    while(strcmp(uart_get_rx_string(), ESP_RESPONSE));
     uart_clear_rx_buf();
 }
 
 void ESP_connect_MQTT (void)
 {
     printf("AT+MQTTUSERCFG=0,1,\"%s\",\"%s\",\"%s\",0,0,\"\"\r\n", MQTT_CLIENT_ID, MQTT_USERNAME, MQTT_PASSWORD);  //AT+MQTTUSERCFG=0,1,"Trolley1","aaj","isdn3002",0,0,""
-    while(strcmp(uart_get_rx_string(), ESP_OK));
+    while(strcmp(uart_get_rx_string(), ESP_RESPONSE));
     uart_clear_rx_buf();
     
     printf("AT+MQTTCONN=0,\"%s\",%s,1\r\n", MQTT_SERVER, MQTT_PORT);  //AT+MQTTCONN=0,"team-aaj.duckdns.org",1883,1
-    while(strcmp(uart_get_rx_string(), ESP_OK));
+    while(strcmp(uart_get_rx_string(), ESP_RESPONSE));
     uart_clear_rx_buf();
 }
 
@@ -47,7 +79,7 @@ void ESP_send_beacon (void)
         }
     }
     printf("}\",%s,0\r\n", MQTT_QOS);
-    while(strcmp(uart_get_rx_string(), ESP_OK));
+    //while(strcmp(uart_get_rx_string(), ESP_RESPONSE));
     uart_clear_rx_buf();
     reset_beacon_info();
 }

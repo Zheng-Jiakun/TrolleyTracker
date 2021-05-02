@@ -90,8 +90,8 @@ void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
     {
         case BLE_GAP_EVT_ADV_REPORT:
         {
-            if (m_scan.scan_buffer.p_data[9] == 0xCB && m_scan.scan_buffer.p_data[10] == 0x5D && m_scan.scan_buffer.p_data[11] == 0xF7 && m_scan.scan_buffer.p_data[12] == 0xB3)
-            //if (m_scan.scan_buffer.p_data[9] == 0xAB && m_scan.scan_buffer.p_data[10] == 0x81 && m_scan.scan_buffer.p_data[11] == 0x90 && m_scan.scan_buffer.p_data[12] == 0xD5)
+            //if (m_scan.scan_buffer.p_data[9] == 0xCB && m_scan.scan_buffer.p_data[10] == 0x5D && m_scan.scan_buffer.p_data[11] == 0xF7 && m_scan.scan_buffer.p_data[12] == 0xB3)
+            if (m_scan.scan_buffer.p_data[9] == 0xAB && m_scan.scan_buffer.p_data[10] == 0x81 && m_scan.scan_buffer.p_data[11] == 0x90 && m_scan.scan_buffer.p_data[12] == 0xD5)
             {
                 uint8_t min_index;
                 if (p_ble_evt->evt.gap_evt.params.adv_report.rssi > find_min_rssi(beacon, &min_index))
@@ -187,11 +187,11 @@ void scan_start(void)
     ret_code_t err_code;
 
     // If there is any pending write to flash, defer scanning until it completes.
-    //if (nrf_fstorage_is_busy(NULL))
-    //{
-    //    m_memory_access_in_progress = true;
-    //    return;
-    //}
+    if (nrf_fstorage_is_busy(NULL))
+    {
+        m_memory_access_in_progress = true;
+        return;
+    }
 
     err_code = nrf_ble_scan_start(&m_scan);
     APP_ERROR_CHECK(err_code);

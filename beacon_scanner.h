@@ -23,6 +23,7 @@
 #include "nrf_ble_gatt.h"
 #include "nrf_ble_scan.h"
 
+
 typedef struct {
     uint16_t major;
     uint16_t minor;

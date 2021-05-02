@@ -12,8 +12,17 @@
 #include "bsp.h"
 #include "nordic_common.h"
 #include "app_util.h"
+#include "app_timer.h"
 
-#define ESP_OK          "OK\r\n"
+typedef enum
+{
+    ESP_OK = 0,
+    ESP_TIMEOUT,
+    ESP_WAIT
+} esp_state_t;
+
+#define ESP_TIMEOUT_MS  10000UL
+#define ESP_RESPONSE    "OK\r\n"
 
 //esp8266 configuration
 #define WIFI_SSID       "thinkpad"
@@ -33,10 +42,10 @@
 #define TXPOWER_KEY     "T"
 #define RSSI_KEY        "R"
 
+
+esp_state_t ESP_send_command (const uint8_t* cmd);
 void ESP_connect_WIFI(void);
 void ESP_connect_MQTT(void);
 void ESP_send_beacon (void);
-void uart_clear_rx_buf (void);
-//uint8_t *uart_get_rx_string (void);
 
 #endif
