@@ -2548,7 +2548,7 @@
 // <e> NRFX_NFCT_ENABLED - nrfx_nfct - NFCT peripheral driver
 //==========================================================
 #ifndef NRFX_NFCT_ENABLED
-#define NRFX_NFCT_ENABLED 0
+#define NRFX_NFCT_ENABLED 1
 #endif
 // <o> NRFX_NFCT_CONFIG_IRQ_PRIORITY  - Interrupt priority
  
@@ -4015,7 +4015,7 @@
 // <e> NRFX_TIMER_ENABLED - nrfx_timer - TIMER periperal driver
 //==========================================================
 #ifndef NRFX_TIMER_ENABLED
-#define NRFX_TIMER_ENABLED 0
+#define NRFX_TIMER_ENABLED 1
 #endif
 // <q> NRFX_TIMER0_ENABLED  - Enable TIMER0 instance
  
@@ -4049,7 +4049,7 @@
  
 
 #ifndef NRFX_TIMER4_ENABLED
-#define NRFX_TIMER4_ENABLED 0
+#define NRFX_TIMER4_ENABLED 1
 #endif
 
 // <o> NRFX_TIMER_DEFAULT_CONFIG_FREQUENCY  - Timer frequency if in Timer mode
@@ -5726,7 +5726,7 @@
 // <e> TIMER_ENABLED - nrf_drv_timer - TIMER periperal driver - legacy layer
 //==========================================================
 #ifndef TIMER_ENABLED
-#define TIMER_ENABLED 0
+#define TIMER_ENABLED 1
 #endif
 // <o> TIMER_DEFAULT_CONFIG_FREQUENCY  - Timer frequency if in Timer mode
  
@@ -5814,7 +5814,7 @@
  
 
 #ifndef TIMER4_ENABLED
-#define TIMER4_ENABLED 0
+#define TIMER4_ENABLED 1
 #endif
 
 // </e>
@@ -11028,7 +11028,7 @@
 // <e> NFC_NDEF_MSG_ENABLED - nfc_ndef_msg - NFC NDEF Message generator module
 //==========================================================
 #ifndef NFC_NDEF_MSG_ENABLED
-#define NFC_NDEF_MSG_ENABLED 0
+#define NFC_NDEF_MSG_ENABLED 1
 #endif
 // <o> NFC_NDEF_MSG_TAG_TYPE  - NFC Tag Type
  
@@ -11087,7 +11087,7 @@
  
 
 #ifndef NFC_NDEF_RECORD_ENABLED
-#define NFC_NDEF_RECORD_ENABLED 0
+#define NFC_NDEF_RECORD_ENABLED 1
 #endif
 
 // <e> NFC_NDEF_RECORD_PARSER_ENABLED - nfc_ndef_record_parser - NFC NDEF Record parser module
@@ -11136,7 +11136,7 @@
  
 
 #ifndef NFC_NDEF_TEXT_RECORD_ENABLED
-#define NFC_NDEF_TEXT_RECORD_ENABLED 0
+#define NFC_NDEF_TEXT_RECORD_ENABLED 1
 #endif
 
 // <q> NFC_NDEF_URI_MSG_ENABLED  - nfc_uri_msg - Encoding data for NDEF message with URI record for NFC Tag
@@ -11156,7 +11156,7 @@
 // <e> NFC_PLATFORM_ENABLED - nfc_platform - NFC platform module for Clock control.
 //==========================================================
 #ifndef NFC_PLATFORM_ENABLED
-#define NFC_PLATFORM_ENABLED 0
+#define NFC_PLATFORM_ENABLED 1
 #endif
 // <e> NFC_PLATFORM_LOG_ENABLED - Enables logging in the module.
 //==========================================================

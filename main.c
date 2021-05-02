@@ -1,15 +1,24 @@
 #include "beacon_scanner.h"
 #include "uart.h"
 #include "ESP8266.h"
-#include "nrf_pwr_mgmt.h"
+#include "app_timer.h"
+#include "app_systick.h"
+#include "nfc.h"
+
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
-#include "peer_manager.h"
-#include "peer_manager_handler.h"
-#include "app_timer.h"
-#include "app_systick.h"
-
+//#include "nordic_common.h"
+//#include "nrf_sdm.h"
+//#include "ble_hci.h"
+//#include "ble_db_discovery.h"
+//#include "ble_conn_state.h"
+//#include "ble_dis_c.h"
+//#include "ble_rscs_c.h"
+//#include "bsp_btn_ble.h"
+//#include "peer_manager.h"
+//#include "peer_manager_handler.h"
+#include "nrf_pwr_mgmt.h"
 
 /**@brief Function for initializing logging. */
 static void log_init(void)
@@ -77,6 +86,8 @@ int main(void)
     bsp_board_init(BSP_INIT_LEDS);
     uart_init();
 
+    nfc_init();
+
     // Start execution.
     //NRF_LOG_RAW_INFO(  " ----------------\r\n");
     //NRF_LOG_RAW_INFO(	 "| Beacon scanner |");
@@ -85,13 +96,13 @@ int main(void)
     //printf("Beacon Scanner\n");
     
     //ESP_connect_WIFI();
-    bsp_board_led_on(BSP_BOARD_LED_0);
+    //bsp_board_led_on(BSP_BOARD_LED_0);
 
     //scan_start();
-    bsp_board_led_on(BSP_BOARD_LED_1);
+    //bsp_board_led_on(BSP_BOARD_LED_1);
 
     //ESP_connect_MQTT();
-    bsp_board_led_on(BSP_BOARD_LED_2);
+    //bsp_board_led_on(BSP_BOARD_LED_2);
 
 
     while(1)
