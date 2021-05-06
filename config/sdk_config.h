@@ -11015,14 +11015,14 @@
  
 
 #ifndef NFC_NDEF_LAUNCHAPP_MSG_ENABLED
-#define NFC_NDEF_LAUNCHAPP_MSG_ENABLED 0
+#define NFC_NDEF_LAUNCHAPP_MSG_ENABLED 1
 #endif
 
 // <q> NFC_NDEF_LAUNCHAPP_REC_ENABLED  - nfc_launchapp_rec - Encoding data for NDEF Application Launching record for NFC Tag
  
 
 #ifndef NFC_NDEF_LAUNCHAPP_REC_ENABLED
-#define NFC_NDEF_LAUNCHAPP_REC_ENABLED 0
+#define NFC_NDEF_LAUNCHAPP_REC_ENABLED 1
 #endif
 
 // <e> NFC_NDEF_MSG_ENABLED - nfc_ndef_msg - NFC NDEF Message generator module

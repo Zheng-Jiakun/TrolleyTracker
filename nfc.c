@@ -2,31 +2,22 @@
 
 #define MAX_REC_COUNT      3     /**< Maximum records count. */
 
-/* Text message in English with its language code. */
-/** @snippet [NFC text usage_1] */
-static const uint8_t en_payload[] =
-{
-    'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd', '!'
-};
-static const uint8_t en_code[] = {'e', 'n'};
-/** @snippet [NFC text usage_1] */
+/** @snippet [NFC Launch App usage_0] */
+/* nRF Toolbox Android application package name */
+static const uint8_t m_android_package_name[] = {'c', 'o', 'm', '.', 'e', 'x', 'a', 'm', 'p', 'l', 'e', '.', 't', 'r', 'o', 'l', 'l' ,'e', 'y'};
+//{'n', 'o', '.', 'n', 'o', 'r', 'd', 'i', 'c', 's',
+//                                                 'e', 'm', 'i', '.', 'a', 'n', 'd', 'r', 'o', 'i',
+//                                                 'd', '.', 'n', 'r', 'f', 't', 'o', 'o', 'l', 'b',
+//                                                 'o', 'x'};
 
-/* Text message in Norwegian with its language code. */
-static const uint8_t no_payload[] =
-{
-    'H', 'a', 'l', 'l', 'o', ' ', 'V', 'e', 'r', 'd', 'e', 'n', '!'
-};
-static const uint8_t no_code[] = {'N', 'O'};
+/* nRF Toolbox application ID for Windows phone */
+static const uint8_t m_windows_application_id[] = {'{', 'e', '1', '2', 'd', '2', 'd', 'a', '7', '-',
+                                                   '4', '8', '8', '5', '-', '4', '0', '0', 'f', '-',
+                                                   'b', 'c', 'd', '4', '-', '6', 'c', 'b', 'd', '5',
+                                                   'b', '8', 'c', 'f', '6', '2', 'c', '}'};
 
-/* Text message in Polish with its language code. */
-static const uint8_t pl_payload[] =
-{
-    'W', 'i', 't', 'a', 'j', ' ', 0xc5, 0x9a, 'w', 'i', 'e', 'c', 'i', 'e', '!'
-};
-static const uint8_t pl_code[] = {'P', 'L'};
-
-/* Buffer used to hold an NFC NDEF message. */
 uint8_t m_ndef_msg_buf[256];
+/** @snippet [NFC Launch App usage_0] */
 
 /**
  * @brief Callback function for handling NFC events.
@@ -49,81 +40,36 @@ static void nfc_callback(void * p_context, nfc_t2t_event_t event, const uint8_t 
 }
 
 
-/**
- * @brief Function for encoding the NDEF text message.
- */
-static ret_code_t welcome_msg_encode(uint8_t * p_buffer, uint32_t * p_len)
-{
-    /** @snippet [NFC text usage_2] */
-    ret_code_t err_code;
-
-    /* Create NFC NDEF text record description in English */
-    NFC_NDEF_TEXT_RECORD_DESC_DEF(nfc_en_text_rec,
-                                  UTF_8,
-                                  en_code,
-                                  sizeof(en_code),
-                                  en_payload,
-                                  sizeof(en_payload));
-    /** @snippet [NFC text usage_2] */
-
-    /* Create NFC NDEF text record description in Norwegian */
-    NFC_NDEF_TEXT_RECORD_DESC_DEF(nfc_no_text_rec,
-                                  UTF_8,
-                                  no_code,
-                                  sizeof(no_code),
-                                  no_payload,
-                                  sizeof(no_payload));
-
-    /* Create NFC NDEF text record description in Polish */
-    NFC_NDEF_TEXT_RECORD_DESC_DEF(nfc_pl_text_rec,
-                                  UTF_8,
-                                  pl_code,
-                                  sizeof(pl_code),
-                                  pl_payload,
-                                  sizeof(pl_payload));
-
-    /* Create NFC NDEF message description, capacity - MAX_REC_COUNT records */
-    /** @snippet [NFC text usage_3] */
-    NFC_NDEF_MSG_DEF(nfc_text_msg, MAX_REC_COUNT);
-    /** @snippet [NFC text usage_3] */
-
-    /* Add text records to NDEF text message */
-    /** @snippet [NFC text usage_4] */
-    err_code = nfc_ndef_msg_record_add(&NFC_NDEF_MSG(nfc_text_msg),
-                                       &NFC_NDEF_TEXT_RECORD_DESC(nfc_en_text_rec));
-    VERIFY_SUCCESS(err_code);
-    /** @snippet [NFC text usage_4] */
-    err_code = nfc_ndef_msg_record_add(&NFC_NDEF_MSG(nfc_text_msg),
-                                       &NFC_NDEF_TEXT_RECORD_DESC(nfc_no_text_rec));
-    VERIFY_SUCCESS(err_code);
-    err_code = nfc_ndef_msg_record_add(&NFC_NDEF_MSG(nfc_text_msg),
-                                       &NFC_NDEF_TEXT_RECORD_DESC(nfc_pl_text_rec));
-    VERIFY_SUCCESS(err_code);
-
-    /** @snippet [NFC text usage_5] */
-    err_code = nfc_ndef_msg_encode(&NFC_NDEF_MSG(nfc_text_msg),
-                                   p_buffer,
-                                   p_len);
-    return err_code;
-    /** @snippet [NFC text usage_5] */
-}
-
 
 /**
  * @brief Function for application main entry.
  */
 void nfc_init(void)
 {
-    uint32_t  len = sizeof(m_ndef_msg_buf);
-    uint32_t  err_code;
+
+    /** @snippet [NFC Launch App usage_1] */
+    uint32_t len;
+    uint32_t err_code;
+    /** @snippet [NFC Launch App usage_1] */
 
     /* Set up NFC */
     err_code = nfc_t2t_setup(nfc_callback, NULL);
     APP_ERROR_CHECK(err_code);
 
-    /* Encode welcome message */
-    err_code = welcome_msg_encode(m_ndef_msg_buf, &len);
+    /** @snippet [NFC Launch App usage_2] */
+    /*  Provide information about available buffer size to encoding function. */
+    len = sizeof(m_ndef_msg_buf);
+
+    /* Encode launchapp message into buffer */
+    err_code = nfc_launchapp_msg_encode(m_android_package_name,
+                                        sizeof(m_android_package_name),
+                                        m_windows_application_id,
+                                        sizeof(m_windows_application_id),
+                                        m_ndef_msg_buf,
+                                        &len);
+
     APP_ERROR_CHECK(err_code);
+    /** @snippet [NFC Launch App usage_2] */
 
     /* Set created message as the NFC payload */
     err_code = nfc_t2t_payload_set(m_ndef_msg_buf, len);
@@ -132,5 +78,6 @@ void nfc_init(void)
     /* Start sensing NFC field */
     err_code = nfc_t2t_emulation_start();
     APP_ERROR_CHECK(err_code);
+
 }
 

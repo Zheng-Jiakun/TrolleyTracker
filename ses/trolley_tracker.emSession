@@ -24,6 +24,8 @@
   <ProjectSessionItem path="TrolleyTracker;TrolleyTracker;Application"/>
   <ProjectSessionItem path="TrolleyTracker;TrolleyTracker;Board Definition"/>
   <ProjectSessionItem path="TrolleyTracker;TrolleyTracker;None"/>
+  <ProjectSessionItem path="TrolleyTracker;TrolleyTracker;nRF_Drivers"/>
+  <ProjectSessionItem path="TrolleyTracker;TrolleyTracker;nRF_Libraries"/>
   <ProjectSessionItem path="TrolleyTracker;TrolleyTracker;nRF_NFC"/>
  </Project>
  <Register1>
@@ -47,7 +49,7 @@
  <Watch1>
   <Watches active="1" update="Never">
    <Watchpoint expression="esp_state" name="esp_state" radix="16" linenumber="0" filename="../ses"/>
-   <Watchpoint expression="start_tick" name="start_tick" radix="11" linenumber="0" filename=""/>
+   <Watchpoint expression="start_tick" name="start_tick" radix="11" linenumber="0" filename="../ses"/>
   </Watches>
  </Watch1>
  <Watch2>
@@ -60,11 +62,10 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="4" y="93" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../nfc.c" selected="0" top="57" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="24" y="4" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../main.c" selected="1" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="25" y="11" useTextEdit="1" openedFrom="D:/Works/TrolleyTracker/main.c" useBinaryEdit="0" left="0" path="../beacon_scanner.h" selected="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="25" y="6" useTextEdit="1" openedFrom="D:/Works/TrolleyTracker/nfc.c" useBinaryEdit="0" left="0" path="../nfc.h" selected="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="189" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../beacon_scanner.c" selected="0" top="174" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="75" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../main.c" selected="0" top="69" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="7" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../nfc.c" selected="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="12" useTextEdit="1" openedFrom="/media/geekzjk/Data/Works/TrolleyTracker/nfc.c" useBinaryEdit="0" left="0" path="../nfc.h" selected="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="5" y="69" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../ESP8266.c" selected="1" top="57" codecName="Default"/>
  </Files>
- <ARMCrossStudioWindow activeProject="TrolleyTracker" fileDialogDefaultFilter="*.c;*.cpp;*.cxx;*.cc;*.h;*.hpp;*.hxx" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="D:/Works/TrolleyTracker/sdk/components/nfc/ndef/text" debugSearchPath="" autoConnectCapabilities="3711"/>
+ <ARMCrossStudioWindow activeProject="TrolleyTracker" fileDialogDefaultFilter="*.c;*.cpp;*.cxx;*.cc;*.h;*.hpp;*.hxx" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="/media/geekzjk/Data/Works/TrolleyTracker/sdk/components/nfc/ndef/launchapp" debugSearchPath="" autoConnectCapabilities="3199"/>
 </session>

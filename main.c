@@ -95,14 +95,14 @@ int main(void)
 
     //printf("Beacon Scanner\n");
     
-    //ESP_connect_WIFI();
-    //bsp_board_led_on(BSP_BOARD_LED_0);
+    ESP_connect_WIFI();
+    bsp_board_led_on(BSP_BOARD_LED_0);
 
-    //scan_start();
-    //bsp_board_led_on(BSP_BOARD_LED_1);
+    scan_start();
+    bsp_board_led_on(BSP_BOARD_LED_1);
 
-    //ESP_connect_MQTT();
-    //bsp_board_led_on(BSP_BOARD_LED_2);
+    ESP_connect_MQTT();
+    bsp_board_led_on(BSP_BOARD_LED_2);
 
 
     while(1)

@@ -6,6 +6,7 @@
 #include "nfc_ndef_msg.h"
 #include "nfc_text_rec.h"
 #include "nrf_log_ctrl.h"
+#include "nfc_launchapp_msg.h"
 
 void nfc_init(void);
 
