@@ -4,6 +4,7 @@
 #include "app_timer.h"
 #include "app_systick.h"
 #include "nfc.h"
+#include "math.h"
 
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
@@ -98,10 +99,10 @@ int main(void)
     ESP_connect_WIFI();
     bsp_board_led_on(BSP_BOARD_LED_0);
 
-    scan_start();
+    ESP_connect_MQTT();
     bsp_board_led_on(BSP_BOARD_LED_1);
 
-    ESP_connect_MQTT();
+    scan_start();
     bsp_board_led_on(BSP_BOARD_LED_2);
 
 
@@ -113,9 +114,10 @@ int main(void)
         //    printf("OK\n");
   
         //printf("%d\n", app_systick_get());
-        //ESP_send_beacon();
-        //bsp_board_led_invert(BSP_BOARD_LED_3);
-        //nrf_delay_ms(1);
+        ESP_send_beacon();
+
+        bsp_board_led_invert(BSP_BOARD_LED_3);
+        nrf_delay_ms(1000);
         //idle_state_handle();
     }
 }

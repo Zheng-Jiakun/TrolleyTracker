@@ -27,18 +27,20 @@ typedef enum
 //esp8266 configuration
 #define WIFI_SSID       "thinkpad"
 #define WIFI_PASSWORD   "12345677"
-#define MQTT_SERVER     "team-aaj.duckdns.org"
+#define MQTT_SERVER     "dmh488.resnet.ust.hk"
 #define MQTT_PORT       "1883"
-#define MQTT_USERNAME   "aaj"
-#define MQTT_PASSWORD   "isdn3002"
+#define MQTT_USERNAME   "mqttuser"
+#define MQTT_PASSWORD   "mqttpassword"
 #define MQTT_CLIENT_ID  "Trolley1"
-#define MQTT_TOPIC      "trackerShort"
+#define MQTT_TOPIC      "trolley"
 #define MQTT_QOS        "0"
 
 //json data key names
 #define MAC_ADDRESS     "FD"
-#define MAJOR_KEY       "A"
-#define MINOR_KEY       "I"
+#define MAC_ADDRESS_KEY "M"
+#define BEACON_KEY      "B"
+#define MAJOR_KEY       "M"
+#define MINOR_KEY       "m"
 #define TXPOWER_KEY     "T"
 #define RSSI_KEY        "R"
 

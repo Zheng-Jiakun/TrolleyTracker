@@ -26,20 +26,20 @@ ble_gap_scan_params_t m_scan_param =                 /**< Scan parameters reques
     .extended      = 1,
 };
 
-///**@brief 128-bit UUID base List. */
-//ble_uuid128_t const m_base_uuid128 =
-//{
-//   {
-//       //0x23, 0xD1, 0xBC, 0xEA, 0x5F, 0x78, 0x23, 0x15,
-//       //0xDE, 0xEF, 0x12, 0x12, 0x00, 0x00, 0x00, 0x00
+/**@brief 128-bit UUID base List. */
+ble_uuid128_t const m_base_uuid128 =
+{
+   {
+        //0x01, 0x12, 0x23, 0x34, 0x45, 0x56, 0x67, 0x78,   //nrf
+        //0x89, 0x9a, 0xab, 0xbc, 0xcd, 0xde, 0xef, 0xf0
        
-//       0xAB, 0x81, 0x90, 0xD5, 0xD1, 0x1E, 0x49, 0x41,
-//       0xAC, 0xC4, 0x42, 0xF3, 0x00, 0x00, 0x00, 0x00
-//       //, 0x05, 0x10, 0xB4, 0x08
-//       //0xAB, 0x81, 0x90, 0xD5, 0xD1, 0x1E, 0x49, 0x41,
-//       //0xAC, 0xC4, 0x42, 0xF3, 0x05, 0x10, 0xB4, 0x08
-//   }
-//};
+        //0xAB, 0x81, 0x90, 0xD5, 0xD1, 0x1E, 0x49, 0x41,    //studio
+        //0xAC, 0xC4, 0x42, 0xF3, 0x05, 0x10, 0xB4, 0x08
+
+        0xfd, 0xa5, 0x06, 0x93, 0xa4, 0xe2, 0x4f, 0xb1,   //4223 beacon
+        0xaf, 0xcf, 0xc6, 0xeb, 0x07, 0x64, 0x78, 0x25
+   }
+};
 
 //ble_uuid_t m_beacon_uuid =
 //{
@@ -90,8 +90,8 @@ void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
     {
         case BLE_GAP_EVT_ADV_REPORT:
         {
-            //if (m_scan.scan_buffer.p_data[9] == 0xCB && m_scan.scan_buffer.p_data[10] == 0x5D && m_scan.scan_buffer.p_data[11] == 0xF7 && m_scan.scan_buffer.p_data[12] == 0xB3)
-            if (m_scan.scan_buffer.p_data[9] == 0xAB && m_scan.scan_buffer.p_data[10] == 0x81 && m_scan.scan_buffer.p_data[11] == 0x90 && m_scan.scan_buffer.p_data[12] == 0xD5)
+            //if (m_scan.scan_buffer.p_data[9] == m_base_uuid128.uuid128[0] && m_scan.scan_buffer.p_data[10] == m_base_uuid128.uuid128[1] && m_scan.scan_buffer.p_data[11] == m_base_uuid128.uuid128[2] && m_scan.scan_buffer.p_data[12] == m_base_uuid128.uuid128[3])
+            if (memcmp(m_base_uuid128.uuid128, m_scan.scan_buffer.p_data+9, 16) == 0)
             {
                 uint8_t min_index;
                 if (p_ble_evt->evt.gap_evt.params.adv_report.rssi > find_min_rssi(beacon, &min_index))

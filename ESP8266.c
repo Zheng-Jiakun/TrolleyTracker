@@ -65,20 +65,36 @@ void ESP_send_beacon (void)
     //get_beacon_info()[2].major, get_beacon_info()[2].minor, get_beacon_info()[2].txpower, get_beacon_info()[2].rssi, 
     //get_beacon_info()[3].major, get_beacon_info()[3].minor, get_beacon_info()[3].txpower, get_beacon_info()[3].rssi);
     //AT+MQTTPUB=0,"test","test62345",1,0
-    printf("AT+MQTTPUB=0,\"%s\",\"{\\\"M\\\":\\\"%s\\\"\\,", MQTT_TOPIC, MAC_ADDRESS);
+
+    //printf("AT+MQTTPUB=0,\"%s\",\"{\\\"M\\\":\\\"%s\\\"\\,", MQTT_TOPIC, MAC_ADDRESS);
+    //for (uint8_t i = 0; i < BEACON_NUM; i++)
+    //{
+    //    printf("\\\"%s%d\\\":%d\\,\\\"%s%d\\\":%d\\,\\\"%s%d\\\":%d\\,\\\"%s%d\\\":%d", 
+    //    MAJOR_KEY, i, get_beacon_info()[i].major,
+    //    MINOR_KEY, i, get_beacon_info()[i].minor, 
+    //    TXPOWER_KEY, i, get_beacon_info()[i].txpower, 
+    //    RSSI_KEY, i, get_beacon_info()[i].rssi);
+    //    if (i != BEACON_NUM - 1)
+    //    {
+    //        printf("\\,"); 
+    //    }
+    //}
+    //printf("}\",%s,0\r\n", MQTT_QOS);
+
+    printf("AT+MQTTPUB=0,\"%s\",\"{\\\"%s\\\":\\\"%s\\\"\\,\\\"%s\\\":[", MQTT_TOPIC, MAC_ADDRESS_KEY, MAC_ADDRESS, BEACON_KEY);
     for (uint8_t i = 0; i < BEACON_NUM; i++)
     {
-        printf("\\\"%s%d\\\":%d\\,\\\"%s%d\\\":%d\\,\\\"%s%d\\\":%d\\,\\\"%s%d\\\":%d", 
-        MAJOR_KEY, i, get_beacon_info()[i].major,
-        MINOR_KEY, i, get_beacon_info()[i].minor, 
-        TXPOWER_KEY, i, get_beacon_info()[i].txpower, 
-        RSSI_KEY, i, get_beacon_info()[i].rssi);
+        printf("{\\\"%s\\\":%d\\,\\\"%s\\\":%d\\,\\\"%s\\\":%d\\,\\\"%s\\\":%d}", 
+        MAJOR_KEY, get_beacon_info()[i].major,
+        MINOR_KEY, get_beacon_info()[i].minor, 
+        TXPOWER_KEY, get_beacon_info()[i].txpower, 
+        RSSI_KEY, get_beacon_info()[i].rssi);
         if (i != BEACON_NUM - 1)
         {
-            printf("\\,");
+            printf("\\,"); 
         }
     }
-    printf("}\",%s,0\r\n", MQTT_QOS);
+    printf("]}\",%s,0\r\n", MQTT_QOS);
     //while(strcmp(uart_get_rx_string(), ESP_RESPONSE));
     uart_clear_rx_buf();
     reset_beacon_info();
