@@ -5,8 +5,8 @@
 #define APP_BLE_OBSERVER_PRIO       3                                   /**< BLE observer priority of the application. There is no need to modify this value. */
 #define APP_SOC_OBSERVER_PRIO       1                                   /**< SoC observer priority of the application. There is no need to modify this value. */
 
-#define SCAN_INTERVAL               0x07D0                              /**< Determines scan interval in units of 0.625 millisecond. */
-#define SCAN_WINDOW                 0x07D0                              /**< Determines scan window in units of 0.625 millisecond. */
+#define SCAN_INTERVAL               3000U                              /**< Determines scan interval in units of 0.625 millisecond. */
+#define SCAN_WINDOW                 3000U                              /**< Determines scan window in units of 0.625 millisecond. */
 #define SCAN_DURATION               0x0000                              /**< Duration of the scanning (timeout) in units of 10 milliseconds. If set to 0x0000, scanning continues until it is explicitly disabled. */
 
 NRF_BLE_SCAN_DEF(m_scan);                                   /**< Scanning Module instance. */
@@ -48,34 +48,42 @@ ble_uuid128_t const m_base_uuid128 =
 //};
 
 
- const beacon_t beacon_reset[BEACON_NUM] = {{0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}};
- beacon_t beacon[BEACON_NUM] = {{0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}};
+ beacon_t beacon;
 
  int8_t find_min_rssi (beacon_t *beacon, uint8_t *min_index)
  {
     int8_t min = 127;
-    for (uint8_t i = 0; i < BEACON_NUM; i++)
+    for (uint8_t i = 0; i < BEACON_MAX_NUM; i++)
     {
-        if (beacon[i].rssi < min)
+        if (beacon->data[i].rssi < min)
         {
-            min = beacon[i].rssi;
+            min = beacon->data[i].rssi;
             *min_index = i;
         }
     }
     return min;
  }
 
- int8_t find_minor (uint16_t minor)
+ int8_t find_beacon_index (beacon_t *beacon, uint16_t major, uint16_t minor)
  {
     int8_t index = -1;
-    for (uint8_t i = 0; i < BEACON_NUM; i++)
+    for (uint8_t i = 0; i < BEACON_MAX_NUM; i++)
     {
-        if (beacon[i].minor == minor)
+        if (beacon->data[i].major == major && beacon->data[i].minor == minor)
         {
             index = i;
         }
     }
     return index;
+ }
+
+ void update_beacon_count (beacon_t *beacon)
+ {
+    beacon->count = 0;
+    for (uint8_t i = 0; i < BEACON_MAX_NUM; i++)
+    {
+        beacon->count += beacon->dirty_flag[i];
+    }
  }
 
 /**@brief Function for handling BLE events.
@@ -94,38 +102,40 @@ void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
             if (memcmp(m_base_uuid128.uuid128, m_scan.scan_buffer.p_data+9, 16) == 0)
             {
                 uint8_t min_index;
-                if (p_ble_evt->evt.gap_evt.params.adv_report.rssi > find_min_rssi(beacon, &min_index))
+                if (p_ble_evt->evt.gap_evt.params.adv_report.rssi > find_min_rssi(&beacon, &min_index))
                 {
+                    uint16_t major = (m_scan.scan_buffer.p_data[25] * 256) + m_scan.scan_buffer.p_data[26];
                     uint16_t minor = (m_scan.scan_buffer.p_data[27] * 256) + m_scan.scan_buffer.p_data[28];
-                    int8_t minor_index = find_minor(minor);
-                    if (minor_index == -1)
+                    int8_t beacon_index = find_beacon_index(&beacon, major, minor);
+                    if (beacon_index == -1)   //new beacon
                     {
-                        beacon[min_index].major = (m_scan.scan_buffer.p_data[25] * 256) + m_scan.scan_buffer.p_data[26];
-                        beacon[min_index].minor = minor;
-                        beacon[min_index].txpower = (int8_t)m_scan.scan_buffer.p_data[29];
-                        beacon[min_index].rssi = p_ble_evt->evt.gap_evt.params.adv_report.rssi;
+                        beacon.data[min_index].major = major;
+                        beacon.data[min_index].minor = minor;
+                        beacon.data[min_index].txpower = (int8_t)m_scan.scan_buffer.p_data[29];
+                        beacon.data[min_index].rssi = p_ble_evt->evt.gap_evt.params.adv_report.rssi;
+                        beacon.count++;
+                        beacon.dirty_flag[min_index] = 1;
+                        update_beacon_count(&beacon);
                     }
-                    else
+                    else      //update existing beacon
                     {
-                        //beacon[minor_index].major = (m_scan.scan_buffer.p_data[25] * 256) + m_scan.scan_buffer.p_data[26];
-                        //beacon[minor_index].minor = minor;
-                        beacon[minor_index].txpower = (int8_t)m_scan.scan_buffer.p_data[29];
-                        beacon[minor_index].rssi = p_ble_evt->evt.gap_evt.params.adv_report.rssi;
+                        beacon.data[beacon_index].txpower = (int8_t)m_scan.scan_buffer.p_data[29];
+                        beacon.data[beacon_index].rssi = p_ble_evt->evt.gap_evt.params.adv_report.rssi;
                     }
                 }
 
 
                 //printf ("\r\n-----------Beacon Found-----------\r\n");
-                //for (uint8_t i = 0; i < BEACON_NUM; i++)
-                //    printf("beacon %d:\nmajor: %d\tminor: %d\t txPower: %d\t rssi: %d\n", i, beacon[i].major, beacon[i].minor, beacon[i].txpower, beacon[i].rssi);
+                //for (uint8_t i = 0; i < BEACON_MAX_NUM; i++)
+                //    printf("beacon %d:\nmajor: %d\tminor: %d\t txPower: %d\t rssi: %d\n", i, beacon.data[i].major, beacon.data[i].minor, beacon.data[i].txpower, beacon.data[i].rssi);
                 //printf ("----------------------------------\r\n");
 
-                NRF_LOG_RAW_INFO ("\r\n-----------Beacon Found-----------\r\n");
-                for (uint8_t i = 0; i < BEACON_NUM; i++)
-                    NRF_LOG_RAW_INFO("beacon %d:\nmajor: %d\tminor: %d\t txPower: %d\t rssi: %d\n", i, beacon[i].major, beacon[i].minor, beacon[i].txpower, beacon[i].rssi);
+                //NRF_LOG_RAW_INFO ("\r\n-----------Beacon Found-----------\r\n");
+                //for (uint8_t i = 0; i < BEACON_MAX_NUM; i++)
+                //    NRF_LOG_RAW_INFO("beacon %d:\nmajor: %d\tminor: %d\t txPower: %d\t rssi: %d\n", i, beacon.data[i].major, beacon.data[i].minor, beacon.data[i].txpower, beacon.data[i].rssi);
                 //NRF_LOG_RAW_HEXDUMP_INFO (m_scan.scan_buffer.p_data, m_scan.scan_buffer.len);
                 //NRF_LOG_RAW_INFO ("\r\n%d\r\n", p_ble_evt->evt.gap_evt.params.adv_report.rssi);
-                NRF_LOG_RAW_INFO ("----------------------------------\r\n");
+                //NRF_LOG_RAW_INFO ("----------------------------------\r\n");
             }
         }
 
@@ -253,10 +263,12 @@ void ble_stack_init(void)
 
 void reset_beacon_info(void)
 {
+    const beacon_t beacon_reset = {0, {0, 0, 0, 0}, {{0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}}};
     memcpy(&beacon, &beacon_reset, sizeof(beacon));
+    //memset(&beacon, 0, sizeof(beacon));
 }
 
 beacon_t* get_beacon_info(void)
 {
-    return beacon;
+    return &beacon;
 }

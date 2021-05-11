@@ -67,14 +67,14 @@ void ESP_send_beacon (void)
     //AT+MQTTPUB=0,"test","test62345",1,0
 
     //printf("AT+MQTTPUB=0,\"%s\",\"{\\\"M\\\":\\\"%s\\\"\\,", MQTT_TOPIC, MAC_ADDRESS);
-    //for (uint8_t i = 0; i < BEACON_NUM; i++)
+    //for (uint8_t i = 0; i < BEACON_MAX_NUM; i++)
     //{
     //    printf("\\\"%s%d\\\":%d\\,\\\"%s%d\\\":%d\\,\\\"%s%d\\\":%d\\,\\\"%s%d\\\":%d", 
     //    MAJOR_KEY, i, get_beacon_info()[i].major,
     //    MINOR_KEY, i, get_beacon_info()[i].minor, 
     //    TXPOWER_KEY, i, get_beacon_info()[i].txpower, 
     //    RSSI_KEY, i, get_beacon_info()[i].rssi);
-    //    if (i != BEACON_NUM - 1)
+    //    if (i != BEACON_MAX_NUM - 1)
     //    {
     //        printf("\\,"); 
     //    }
@@ -82,16 +82,22 @@ void ESP_send_beacon (void)
     //printf("}\",%s,0\r\n", MQTT_QOS);
 
     printf("AT+MQTTPUB=0,\"%s\",\"{\\\"%s\\\":\\\"%s\\\"\\,\\\"%s\\\":[", MQTT_TOPIC, MAC_ADDRESS_KEY, MAC_ADDRESS, BEACON_KEY);
-    for (uint8_t i = 0; i < BEACON_NUM; i++)
+    uint8_t beacon_count = 0;
+    for (uint8_t i = 0; i < BEACON_MAX_NUM; i++)
     {
-        printf("{\\\"%s\\\":%d\\,\\\"%s\\\":%d\\,\\\"%s\\\":%d\\,\\\"%s\\\":%d}", 
-        MAJOR_KEY, get_beacon_info()[i].major,
-        MINOR_KEY, get_beacon_info()[i].minor, 
-        TXPOWER_KEY, get_beacon_info()[i].txpower, 
-        RSSI_KEY, get_beacon_info()[i].rssi);
-        if (i != BEACON_NUM - 1)
+        if (get_beacon_info()->dirty_flag[i])
         {
-            printf("\\,"); 
+            printf("{\\\"%s\\\":%d\\,\\\"%s\\\":%d\\,\\\"%s\\\":%d\\,\\\"%s\\\":%d}", 
+            MAJOR_KEY, get_beacon_info()->data[i].major,
+            MINOR_KEY, get_beacon_info()->data[i].minor, 
+            TXPOWER_KEY, get_beacon_info()->data[i].txpower, 
+            RSSI_KEY, get_beacon_info()->data[i].rssi);
+
+            beacon_count++;
+            if (beacon_count != get_beacon_info()->count)
+            {
+                printf("\\,"); 
+            }
         }
     }
     printf("]}\",%s,0\r\n", MQTT_QOS);

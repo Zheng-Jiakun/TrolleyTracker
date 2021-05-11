@@ -13,12 +13,19 @@
 #include "nrf_ble_gatt.h"
 #include "nrf_ble_scan.h"
 
+#define BEACON_MAX_NUM  4
 
 typedef struct {
     uint16_t major;
     uint16_t minor;
     int8_t txpower;
     int8_t rssi;
+ } beacon_data_t;
+
+ typedef struct {
+    uint8_t count;
+    uint8_t dirty_flag[BEACON_MAX_NUM];
+    beacon_data_t data[BEACON_MAX_NUM];
  } beacon_t;
 
 void scan_init(void);
@@ -27,7 +34,6 @@ void ble_stack_init(void);
 void reset_beacon_info(void);
 beacon_t* get_beacon_info(void);
 
-#define BEACON_NUM  4
 
 
 #endif
