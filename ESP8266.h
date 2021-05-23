@@ -25,8 +25,8 @@ typedef enum
 #define ESP_RESPONSE    "OK\r\n"
 
 //esp8266 configuration
-#define WIFI_SSID       "thinkpad"
-#define WIFI_PASSWORD   "12345677"
+#define WIFI_SSID       "ISD_Mesh"
+#define WIFI_PASSWORD   "ISDworks!"
 #define MQTT_SERVER     "dmh488.resnet.ust.hk"
 #define MQTT_PORT       "1883"
 #define MQTT_USERNAME   "mqttuser"

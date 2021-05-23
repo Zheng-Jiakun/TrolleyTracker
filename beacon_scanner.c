@@ -5,7 +5,7 @@
 #define APP_BLE_OBSERVER_PRIO       3                                   /**< BLE observer priority of the application. There is no need to modify this value. */
 #define APP_SOC_OBSERVER_PRIO       1                                   /**< SoC observer priority of the application. There is no need to modify this value. */
 
-#define SCAN_INTERVAL               3000U                              /**< Determines scan interval in units of 0.625 millisecond. */
+#define SCAN_INTERVAL               200U                              /**< Determines scan interval in units of 0.625 millisecond. */
 #define SCAN_WINDOW                 3000U                              /**< Determines scan window in units of 0.625 millisecond. */
 #define SCAN_DURATION               0x0000                              /**< Duration of the scanning (timeout) in units of 10 milliseconds. If set to 0x0000, scanning continues until it is explicitly disabled. */
 
@@ -120,7 +120,7 @@ void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
                     else      //update existing beacon
                     {
                         beacon.data[beacon_index].txpower = (int8_t)m_scan.scan_buffer.p_data[29];
-                        beacon.data[beacon_index].rssi = p_ble_evt->evt.gap_evt.params.adv_report.rssi;
+                        beacon.data[beacon_index].rssi = 0.5f*(p_ble_evt->evt.gap_evt.params.adv_report.rssi + beacon.data[beacon_index].rssi);
                     }
                 }
 
