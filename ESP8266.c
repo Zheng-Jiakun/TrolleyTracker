@@ -87,10 +87,10 @@ void ESP_send_beacon (void)
     {
         if (get_beacon_info()->dirty_flag[i])
         {
-            printf("{\\\"%s\\\":%d\\,\\\"%s\\\":%d\\,\\\"%s\\\":%d\\,\\\"%s\\\":%d}", 
+            printf("{\\\"%s\\\":%d\\,\\\"%s\\\":%d\\,\\\"%s\\\":%d}", 
             MAJOR_KEY, get_beacon_info()->data[i].major,
             MINOR_KEY, get_beacon_info()->data[i].minor, 
-            TXPOWER_KEY, get_beacon_info()->data[i].txpower, 
+            //TXPOWER_KEY, get_beacon_info()->data[i].txpower, 
             RSSI_KEY, get_beacon_info()->data[i].rssi);
 
             beacon_count++;

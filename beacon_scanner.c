@@ -263,7 +263,7 @@ void ble_stack_init(void)
 
 void reset_beacon_info(void)
 {
-    const beacon_t beacon_reset = {0, {0, 0, 0, 0}, {{0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}}};
+    const beacon_t beacon_reset = {0, {0, 0, 0, 0}, {{0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}}};
     memcpy(&beacon, &beacon_reset, sizeof(beacon));
     //memset(&beacon, 0, sizeof(beacon));
 }

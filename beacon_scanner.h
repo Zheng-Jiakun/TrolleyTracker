@@ -13,7 +13,7 @@
 #include "nrf_ble_gatt.h"
 #include "nrf_ble_scan.h"
 
-#define BEACON_MAX_NUM  4
+#define BEACON_MAX_NUM  5
 
 typedef struct {
     uint16_t major;

@@ -66,11 +66,11 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="15" y="89" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../main.c" selected="0" top="90" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="7" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../beacon_scanner.c" selected="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="86" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../ESP8266.c" selected="0" top="75" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="26" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../nfc.c" selected="1" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="112" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../main.c" selected="0" top="90" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="8" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../beacon_scanner.c" selected="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="101" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../ESP8266.c" selected="1" top="75" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="16" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../nfc.c" selected="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="4" useTextEdit="1" openedFrom="/media/geekzjk/Data/Works/TrolleyTracker/nfc.c" useBinaryEdit="0" left="0" path="../nfc.h" selected="0" top="0" codecName="Default"/>
  </Files>
- <ARMCrossStudioWindow activeProject="TrolleyTracker" fileDialogDefaultFilter="*.asm;*.s;*.inc" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="/usr/share/segger_embedded_studio_for_arm_5.42a/source/thumb_crt0.s&#xa;D:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.42a/source/thumb_crt0.s" fileDialogInitialDirectory="D:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.42a/source" debugSearchPath="" autoConnectCapabilities="3711"/>
+ <ARMCrossStudioWindow activeProject="TrolleyTracker" fileDialogDefaultFilter="*.asm;*.s;*.inc" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="/usr/share/segger_embedded_studio_for_arm_5.42a/source/thumb_crt0.s&#xa;D:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.42a/source/thumb_crt0.s" fileDialogInitialDirectory="D:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.42a/source" debugSearchPath="" autoConnectCapabilities="3199"/>
 </session>
