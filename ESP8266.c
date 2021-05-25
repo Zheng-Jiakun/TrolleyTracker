@@ -43,6 +43,10 @@ void ESP_connect_WIFI(void)
     printf("AT+CWJAP=\"%s\",\"%s\"\r\n", WIFI_SSID, WIFI_PASSWORD);  //AT+CWJAP="ISD4223","1234567abc"  Thunderbolt, fuckrobomaster
     while(strcmp(uart_get_rx_string(), ESP_RESPONSE));
     uart_clear_rx_buf();
+    
+    //printf("AT+CIFSR\r\n");
+    //while(strcmp(uart_get_rx_string(), ESP_RESPONSE));
+    //uart_clear_rx_buf();
 }
 
 void ESP_connect_MQTT (void)

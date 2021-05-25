@@ -9,5 +9,7 @@
 #include "nfc_launchapp_msg.h"
 
 void nfc_init(void);
+void nfc_service(void);
+void update_nfc_message(const uint8_t *text, uint16_t text_len);
 
 #endif

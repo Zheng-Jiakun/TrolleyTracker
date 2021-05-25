@@ -118,6 +118,8 @@ int main(void)
 
         bsp_board_led_invert(BSP_BOARD_LED_3);
         nrf_delay_ms(2000);
+
+        nfc_service();
         //idle_state_handle();
     }
 }

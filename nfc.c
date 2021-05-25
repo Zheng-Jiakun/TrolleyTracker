@@ -1,29 +1,17 @@
 #include "nfc.h"
+#include "ESP8266.h"
 
-#define MAX_REC_COUNT      3     /**< Maximum records count. */
+#define MAX_REC_COUNT      1     /**< Maximum records count. */
 
 /* Text message in English with its language code. */
 /** @snippet [NFC text usage_1] */
-static const uint8_t en_payload[] =
-{
-    'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd', '!'
-};
+static const uint8_t en_payload[] = "hello";
+//{
+//    'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd', '!'
+//};
 static const uint8_t en_code[] = {'e', 'n'};
 /** @snippet [NFC text usage_1] */
 
-/* Text message in Norwegian with its language code. */
-static const uint8_t no_payload[] =
-{
-    'H', 'a', 'l', 'l', 'o', ' ', 'V', 'e', 'r', 'd', 'e', 'n', '!'
-};
-static const uint8_t no_code[] = {'N', 'O'};
-
-/* Text message in Polish with its language code. */
-static const uint8_t pl_payload[] =
-{
-    'W', 'i', 't', 'a', 'j', ' ', 0xc5, 0x9a, 'w', 'i', 'e', 'c', 'i', 'e', '!'
-};
-static const uint8_t pl_code[] = {'P', 'L'};
 
 /* Buffer used to hold an NFC NDEF message. */
 uint8_t m_ndef_msg_buf[256];
@@ -66,22 +54,6 @@ static ret_code_t welcome_msg_encode(uint8_t * p_buffer, uint32_t * p_len)
                                   sizeof(en_payload));
     /** @snippet [NFC text usage_2] */
 
-    /* Create NFC NDEF text record description in Norwegian */
-    NFC_NDEF_TEXT_RECORD_DESC_DEF(nfc_no_text_rec,
-                                  UTF_8,
-                                  no_code,
-                                  sizeof(no_code),
-                                  no_payload,
-                                  sizeof(no_payload));
-
-    /* Create NFC NDEF text record description in Polish */
-    NFC_NDEF_TEXT_RECORD_DESC_DEF(nfc_pl_text_rec,
-                                  UTF_8,
-                                  pl_code,
-                                  sizeof(pl_code),
-                                  pl_payload,
-                                  sizeof(pl_payload));
-
     /* Create NFC NDEF message description, capacity - MAX_REC_COUNT records */
     /** @snippet [NFC text usage_3] */
     NFC_NDEF_MSG_DEF(nfc_text_msg, MAX_REC_COUNT);
@@ -92,13 +64,7 @@ static ret_code_t welcome_msg_encode(uint8_t * p_buffer, uint32_t * p_len)
     err_code = nfc_ndef_msg_record_add(&NFC_NDEF_MSG(nfc_text_msg),
                                        &NFC_NDEF_TEXT_RECORD_DESC(nfc_en_text_rec));
     VERIFY_SUCCESS(err_code);
-    /** @snippet [NFC text usage_4] */
-    err_code = nfc_ndef_msg_record_add(&NFC_NDEF_MSG(nfc_text_msg),
-                                       &NFC_NDEF_TEXT_RECORD_DESC(nfc_no_text_rec));
-    VERIFY_SUCCESS(err_code);
-    err_code = nfc_ndef_msg_record_add(&NFC_NDEF_MSG(nfc_text_msg),
-                                       &NFC_NDEF_TEXT_RECORD_DESC(nfc_pl_text_rec));
-    VERIFY_SUCCESS(err_code);
+
 
     /** @snippet [NFC text usage_5] */
     err_code = nfc_ndef_msg_encode(&NFC_NDEF_MSG(nfc_text_msg),
@@ -133,7 +99,39 @@ void nfc_init(void)
     /* Start sensing NFC field */
     err_code = nfc_t2t_emulation_start();
     APP_ERROR_CHECK(err_code);
-
-
 }
 
+void update_nfc_message(const uint8_t *text, uint16_t text_len)
+{
+    uint32_t  len = sizeof(m_ndef_msg_buf);
+    uint32_t  err_code;
+
+    err_code = nfc_t2t_emulation_stop();
+    APP_ERROR_CHECK(err_code);
+
+    NFC_NDEF_TEXT_RECORD_DESC_DEF(nfc_en_text_rec, UTF_8, en_code, sizeof(en_code), text, text_len);
+    NFC_NDEF_MSG_DEF(nfc_text_msg, MAX_REC_COUNT);
+
+    err_code = nfc_ndef_msg_record_add(&NFC_NDEF_MSG(nfc_text_msg), &NFC_NDEF_TEXT_RECORD_DESC(nfc_en_text_rec));
+    APP_ERROR_CHECK(err_code);
+
+    err_code = nfc_ndef_msg_encode(&NFC_NDEF_MSG(nfc_text_msg), m_ndef_msg_buf, &len);
+    APP_ERROR_CHECK(err_code);
+
+    err_code = nfc_t2t_payload_set(m_ndef_msg_buf, len);
+    APP_ERROR_CHECK(err_code);
+
+    err_code = nfc_t2t_emulation_start();
+    APP_ERROR_CHECK(err_code);
+}
+
+void nfc_service(void)
+{
+    uint8_t nfc_msg[512];
+    uint32_t len;
+    static uint16_t bat = 420;
+    len = sprintf(nfc_msg, "{\"MAC\":\"%s\",\"IP\":\"%s\",\"BAT\":\"%dmV\",\"BLE\":\"%s\",\"WIFI\":\"%s\"}", MAC_ADDRESS, "192.168.1.100", bat, "OK", "OK");
+    update_nfc_message(nfc_msg, len);
+    bat--;
+    if (bat < 300) bat = 420;
+}

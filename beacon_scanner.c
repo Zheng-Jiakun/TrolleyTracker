@@ -6,7 +6,7 @@
 #define APP_SOC_OBSERVER_PRIO       1                                   /**< SoC observer priority of the application. There is no need to modify this value. */
 
 #define SCAN_INTERVAL               200U                              /**< Determines scan interval in units of 0.625 millisecond. */
-#define SCAN_WINDOW                 3000U                              /**< Determines scan window in units of 0.625 millisecond. */
+#define SCAN_WINDOW                 6200U                              /**< Determines scan window in units of 0.625 millisecond. */
 #define SCAN_DURATION               0x0000                              /**< Duration of the scanning (timeout) in units of 10 milliseconds. If set to 0x0000, scanning continues until it is explicitly disabled. */
 
 NRF_BLE_SCAN_DEF(m_scan);                                   /**< Scanning Module instance. */
