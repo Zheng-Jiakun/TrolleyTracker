@@ -5,6 +5,7 @@
 #include "app_systick.h"
 #include "nfc.h"
 #include "math.h"
+#include "adc.h"
 
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
@@ -78,23 +79,22 @@ int main(void)
     //log_init();
     //timer_init(); //RTC1
     //power_management_init();
-    ble_stack_init();
-    scan_init();
-
     //app_systick_init();
 
+    ble_stack_init();
+    scan_init();
     bsp_board_init(BSP_INIT_LEDS);
-
-    ESP_init();
-
+    //ESP_init();
     uart_init();
-
     nfc_init();
 
-    ESP_connect_WIFI();
+    adc_init();
+
+
+    //ESP_connect_WIFI();
     //bsp_board_led_on(BSP_BOARD_LED_0);
 
-    ESP_connect_MQTT();
+    //ESP_connect_MQTT();
     //bsp_board_led_on(BSP_BOARD_LED_1);
 
     scan_start();
@@ -102,7 +102,7 @@ int main(void)
 
     while(1)
     {
-        ESP_send_beacon();
+        //ESP_send_beacon();
 
         bsp_board_led_invert(BSP_BOARD_LED_3);
         nrf_delay_ms(1000);

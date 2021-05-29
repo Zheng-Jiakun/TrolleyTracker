@@ -30,8 +30,8 @@ typedef enum
 #define ESP_ERROR       "ERROR\r\n"
 
 //esp8266 configuration
-#define WIFI_SSID       "ISD_Mesh"
-#define WIFI_PASSWORD   "ISDworks!"
+#define WIFI_SSID       "geekzjk"//"ISD_Mesh"
+#define WIFI_PASSWORD   "7765.321"//"ISDworks!"
 #define MQTT_SERVER     "dmh488.resnet.ust.hk"
 #define MQTT_PORT       "1883"
 #define MQTT_USERNAME   "mqttuser"

@@ -98,6 +98,9 @@
       <file file_name="../sdk/modules/nrfx/drivers/src/nrfx_systick.c" />
       <file file_name="../sdk/modules/nrfx/drivers/src/nrfx_nfct.c" />
       <file file_name="../sdk/modules/nrfx/drivers/src/nrfx_timer.c" />
+      <file file_name="../sdk/modules/nrfx/drivers/src/nrfx_saadc.c" />
+      <file file_name="../sdk/modules/nrfx/drivers/src/nrfx_ppi.c" />
+      <file file_name="../sdk/integration/nrfx/legacy/nrf_drv_ppi.c" />
     </folder>
     <folder Name="Board Support">
       <file file_name="../sdk/components/libraries/bsp/bsp.c" />
@@ -115,6 +118,7 @@
       </file>
       <file file_name="../app_systick.c" />
       <file file_name="../nfc.c" />
+      <file file_name="../adc.c" />
     </folder>
     <folder Name="nRF_Segger_RTT">
       <file file_name="../sdk/external/segger_rtt/SEGGER_RTT.c" />
