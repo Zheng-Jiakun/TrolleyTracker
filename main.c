@@ -72,12 +72,11 @@ static void idle_state_handle(void)
     }
 }
 
-
 int main(void)
 {
     // Initialize.
     //log_init();
-    timer_init(); //RTC1
+    //timer_init(); //RTC1
     //power_management_init();
     ble_stack_init();
     scan_init();
@@ -85,39 +84,28 @@ int main(void)
     //app_systick_init();
 
     bsp_board_init(BSP_INIT_LEDS);
+
+    ESP_init();
+
     uart_init();
 
     nfc_init();
 
-    // Start execution.
-    //NRF_LOG_RAW_INFO(  " ----------------\r\n");
-    //NRF_LOG_RAW_INFO(	 "| Beacon scanner |");
-    //NRF_LOG_RAW_INFO("\r\n ----------------\r\n");
-
-    //printf("Beacon Scanner\n");
-    
     ESP_connect_WIFI();
-    bsp_board_led_on(BSP_BOARD_LED_0);
+    //bsp_board_led_on(BSP_BOARD_LED_0);
 
     ESP_connect_MQTT();
-    bsp_board_led_on(BSP_BOARD_LED_1);
+    //bsp_board_led_on(BSP_BOARD_LED_1);
 
     scan_start();
     bsp_board_led_on(BSP_BOARD_LED_2);
 
-
     while(1)
     {
-        //esp_state_t esp_state;
-        //esp_state = ESP_send_command("Test");
-        //if (esp_state != ESP_WAIT)
-        //    printf("OK\n");
-  
-        //printf("%d\n", app_systick_get());
         ESP_send_beacon();
 
         bsp_board_led_invert(BSP_BOARD_LED_3);
-        nrf_delay_ms(2000);
+        nrf_delay_ms(1000);
 
         nfc_service();
         //idle_state_handle();

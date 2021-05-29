@@ -36,6 +36,10 @@ esp_state_t ESP_send_command (const uint8_t* cmd)
 
 void ESP_connect_WIFI(void)
 {
+    //printf("AT+RST=1\r\n");  //AT+RST
+    //while(strcmp(uart_get_rx_string(), "ready\r\n"));
+    //uart_clear_rx_buf();
+    
     printf("AT+CWMODE=1\r\n");  //AT+CWMODE=1
     while(strcmp(uart_get_rx_string(), ESP_RESPONSE));
     uart_clear_rx_buf();
@@ -108,4 +112,30 @@ void ESP_send_beacon (void)
     //while(strcmp(uart_get_rx_string(), ESP_RESPONSE));
     uart_clear_rx_buf();
     reset_beacon_info();
+}
+
+void ESP_init (void)
+{
+    nrf_gpio_cfg_output(ESP_EN_PIN);
+    ESP_restart();
+}
+
+void ESP_switch (esp_state_t state)
+{
+    if (state == ESP_ON)
+    {
+        nrf_gpio_pin_write(ESP_EN_PIN, 1);
+    }
+    else if (state == ESP_OFF)
+    {
+        nrf_gpio_pin_write(ESP_EN_PIN, 0);
+    }
+}
+
+void ESP_restart(void)
+{
+    ESP_switch(ESP_OFF);
+    nrf_delay_ms(100);
+    ESP_switch(ESP_ON);
+    nrf_delay_ms(400);
 }

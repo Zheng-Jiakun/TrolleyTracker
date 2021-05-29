@@ -6,7 +6,7 @@
 #define APP_SOC_OBSERVER_PRIO       1                                   /**< SoC observer priority of the application. There is no need to modify this value. */
 
 #define SCAN_INTERVAL               200U                              /**< Determines scan interval in units of 0.625 millisecond. */
-#define SCAN_WINDOW                 6200U                              /**< Determines scan window in units of 0.625 millisecond. */
+#define SCAN_WINDOW                 3000U                              /**< Determines scan window in units of 0.625 millisecond. */
 #define SCAN_DURATION               0x0000                              /**< Duration of the scanning (timeout) in units of 10 milliseconds. If set to 0x0000, scanning continues until it is explicitly disabled. */
 
 NRF_BLE_SCAN_DEF(m_scan);                                   /**< Scanning Module instance. */
@@ -54,7 +54,7 @@ ble_uuid128_t const m_base_uuid128 =
  {
     int8_t min = 127;
     for (uint8_t i = 0; i < BEACON_MAX_NUM; i++)
-    {
+    { 
         if (beacon->data[i].rssi < min)
         {
             min = beacon->data[i].rssi;
@@ -120,7 +120,7 @@ void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
                     else      //update existing beacon
                     {
                         beacon.data[beacon_index].txpower = (int8_t)m_scan.scan_buffer.p_data[29];
-                        beacon.data[beacon_index].rssi = 0.5f*(p_ble_evt->evt.gap_evt.params.adv_report.rssi + beacon.data[beacon_index].rssi);
+                        beacon.data[beacon_index].rssi = 0.5f*(p_ble_evt->evt.gap_evt.params.adv_report.rssi + beacon.data[beacon_index].rssi)+0.5f;
                     }
                 }
 
@@ -194,6 +194,8 @@ void scan_init(void)
  */
 void scan_start(void)
 {
+    reset_beacon_info();
+
     ret_code_t err_code;
 
     // If there is any pending write to flash, defer scanning until it completes.
@@ -263,8 +265,15 @@ void ble_stack_init(void)
 
 void reset_beacon_info(void)
 {
-    const beacon_t beacon_reset = {0, {0, 0, 0, 0}, {{0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}}};
-    memcpy(&beacon, &beacon_reset, sizeof(beacon));
+    beacon.count = 0;
+    for (uint8_t i = 0; i < BEACON_MAX_NUM; i++)
+    {
+        beacon.dirty_flag[i] = 0;
+        const beacon_data_t beacon_reset = {0, 0, 0, -128};
+        memcpy(&beacon.data[i], &beacon_reset, sizeof(beacon_reset));
+    }
+    //const beacon_t beacon_reset = {0, {0, 0, 0, 0, 0}, {{0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}, {0, 0, 0, -128}}};
+    //memcpy(&beacon, &beacon_reset, sizeof(beacon));
     //memset(&beacon, 0, sizeof(beacon));
 }
 

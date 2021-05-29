@@ -18,11 +18,16 @@ typedef enum
 {
     ESP_OK = 0,
     ESP_TIMEOUT,
-    ESP_WAIT
+    ESP_WAIT,
+    ESP_ON = 10,
+    ESP_OFF
 } esp_state_t;
+
+#define ESP_EN_PIN      5
 
 #define ESP_TIMEOUT_MS  10000UL
 #define ESP_RESPONSE    "OK\r\n"
+#define ESP_ERROR       "ERROR\r\n"
 
 //esp8266 configuration
 #define WIFI_SSID       "ISD_Mesh"
@@ -49,5 +54,8 @@ esp_state_t ESP_send_command (const uint8_t* cmd);
 void ESP_connect_WIFI(void);
 void ESP_connect_MQTT(void);
 void ESP_send_beacon (void);
+void ESP_switch(esp_state_t);
+void ESP_restart(void);
+void ESP_init (void);
 
 #endif
