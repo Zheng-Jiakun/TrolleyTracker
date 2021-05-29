@@ -1,5 +1,6 @@
 #include "nfc.h"
-#include "ESP8266.h"
+
+nfc_data_t nfc_data = {false, false, "192.168.1.100", 4200, MAC_ADDRESS};
 
 #define MAX_REC_COUNT      1     /**< Maximum records count. */
 
@@ -127,11 +128,16 @@ void update_nfc_message(const uint8_t *text, uint16_t text_len)
 
 void nfc_service(void)
 {
+    strcpy(nfc_data.ip, "192.168.1.100");
+
     uint8_t nfc_msg[512];
     uint32_t len;
-    static uint16_t bat = 420;
-    len = sprintf(nfc_msg, "{\"MAC\":\"%s\",\"IP\":\"%s\",\"BAT\":\"%dmV\",\"BLE\":\"%s\",\"WIFI\":\"%s\"}", MAC_ADDRESS, "192.168.1.100", bat, "OK", "OK");
+    len = sprintf(nfc_msg, 
+    "{\"MAC\":\"%s\",\"IP\":\"%s\",\"BAT\":\"%dmV\",\"BLE\":\"%s\",\"WIFI\":\"%s\"}", 
+    nfc_data.mac, 
+    nfc_data.ip,
+    nfc_data.bat, 
+    nfc_data.ble ? "OK" : "Failed",
+    nfc_data.wifi ? "OK" : "Failed");
     update_nfc_message(nfc_msg, len);
-    bat--;
-    if (bat < 300) bat = 420;
 }
