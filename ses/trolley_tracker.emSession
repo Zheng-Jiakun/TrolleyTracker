@@ -59,12 +59,12 @@
    <Watchpoint expression="start_tick" name="start_tick" radix="11" linenumber="0" filename="../ses"/>
    <Watchpoint expression="beacon" name="beacon" radix="10" linenumber="0" filename="../ses"/>
    <Watchpoint expression="m_scan" name="m_scan" radix="-1" linenumber="103" filename="../beacon_scanner.c"/>
-   <Watchpoint expression="distance" name="distance" radix="-1" linenumber="117" filename="../main.c"/>
-   <Watchpoint expression="err_code" name="err_code" radix="16" linenumber="96" filename="../nfc.c"/>
+   <Watchpoint expression="distance" name="distance" radix="-1" linenumber="115" filename="../main.c"/>
+   <Watchpoint expression="err_code" name="err_code" radix="16" linenumber="97" filename="../nfc.c"/>
    <Watchpoint expression="uart_rx" name="uart_rx" radix="-1" linenumber="0" filename="../ses"/>
    <Watchpoint expression="ret_code" name="ret_code" radix="-1" linenumber="183" filename="../sdk/components/softdevice/common/nrf_sdh.c"/>
    <Watchpoint expression="p_ble_evt" name="p_ble_evt" radix="-1" linenumber="105" filename="../beacon_scanner.c"/>
-   <Watchpoint expression="temp" name="temp" radix="-1" linenumber="109" filename="../main.c"/>
+   <Watchpoint expression="nfc_data" name="nfc_data" radix="-1" linenumber="0" filename="../ses"/>
   </Watches>
  </Watch1>
  <Watch2>
@@ -77,7 +77,7 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="42" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../adc.c" selected="1" top="30" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="5" y="105" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../main.c" selected="1" top="84" codecName="Default"/>
  </Files>
- <ARMCrossStudioWindow activeProject="TrolleyTracker" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="/usr/share/segger_embedded_studio_for_arm_5.42a/source/thumb_crt0.s&#xa;D:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.42a/source/thumb_crt0.s" fileDialogInitialDirectory="/media/geekzjk/Data/Works/TrolleyTracker/sdk/integration/nrfx/legacy" debugSearchPath="" autoConnectCapabilities="3711"/>
+ <ARMCrossStudioWindow activeProject="TrolleyTracker" fileDialogDefaultFilter="*.c;*.cpp;*.cxx;*.cc;*.h;*.hpp;*.hxx" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="/usr/share/segger_embedded_studio_for_arm_5.42a/source/thumb_crt0.s&#xa;D:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.42a/source/thumb_crt0.s" fileDialogInitialDirectory="/media/geekzjk/Data/Works/TrolleyTracker/sdk/integration/nrfx/legacy" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>

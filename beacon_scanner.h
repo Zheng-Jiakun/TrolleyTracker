@@ -33,6 +33,7 @@ void scan_start(void);
 void ble_stack_init(void);
 void reset_beacon_info(void);
 beacon_t* get_beacon_info(void);
+uint8_t get_ble_mac (void);
 
 
 

@@ -41,7 +41,7 @@ typedef enum
 #define MQTT_QOS        "0"
 
 //json data key names
-#define MAC_ADDRESS     "FD"
+//#define MAC_ADDRESS     "FD"
 #define MAC_ADDRESS_KEY "M"
 #define BEACON_KEY      "B"
 #define MAJOR_KEY       "M"

@@ -8,6 +8,7 @@
 #include "nrf_log_ctrl.h"
 #include "nfc_launchapp_msg.h"
 #include "ESP8266.h"
+#include "beacon_scanner.h"
 
 typedef struct 
 {
@@ -16,7 +17,7 @@ typedef struct
     bool mqtt;
     uint8_t ip[16];
     uint16_t bat;
-    const uint8_t *mac;
+    uint8_t mac;
 } nfc_data_t;
 
 void nfc_init(void);

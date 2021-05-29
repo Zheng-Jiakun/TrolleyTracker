@@ -89,7 +89,7 @@ void ESP_send_beacon (void)
     //}
     //printf("}\",%s,0\r\n", MQTT_QOS);
 
-    printf("AT+MQTTPUB=0,\"%s\",\"{\\\"%s\\\":\\\"%s\\\"\\,\\\"%s\\\":[", MQTT_TOPIC, MAC_ADDRESS_KEY, MAC_ADDRESS, BEACON_KEY);
+    printf("AT+MQTTPUB=0,\"%s\",\"{\\\"%s\\\":\\\"%X\\\"\\,\\\"%s\\\":[", MQTT_TOPIC, MAC_ADDRESS_KEY, get_ble_mac(), BEACON_KEY);
     uint8_t beacon_count = 0;
     for (uint8_t i = 0; i < BEACON_MAX_NUM; i++)
     {

@@ -9,6 +9,9 @@
 #define SCAN_WINDOW                 3000U                              /**< Determines scan window in units of 0.625 millisecond. */
 #define SCAN_DURATION               0x0000                              /**< Duration of the scanning (timeout) in units of 10 milliseconds. If set to 0x0000, scanning continues until it is explicitly disabled. */
 
+ble_gap_addr_t ble_address;
+uint8_t ble_id;
+
 NRF_BLE_SCAN_DEF(m_scan);                                   /**< Scanning Module instance. */
 
 bool                  m_memory_access_in_progress;   /**< Flag to keep track of ongoing operations on persistent memory. */
@@ -187,6 +190,8 @@ void scan_init(void)
 
     //err_code = nrf_ble_scan_filters_enable(&m_scan, NRF_BLE_SCAN_UUID_FILTER, true);
     //APP_ERROR_CHECK(err_code);
+    sd_ble_gap_addr_get(&ble_address);
+    ble_id = ble_address.addr[0] + ble_address.addr[5];
 }
 
 
@@ -280,4 +285,9 @@ void reset_beacon_info(void)
 beacon_t* get_beacon_info(void)
 {
     return &beacon;
+}
+
+uint8_t get_ble_mac (void)
+{
+    return ble_id;
 }
