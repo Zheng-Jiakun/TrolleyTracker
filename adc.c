@@ -73,7 +73,7 @@ void saadc_callback(nrf_drv_saadc_evt_t const * p_event)
         //    //NRF_LOG_INFO("%d", p_event->data.done.p_buffer[i]);
         //    //printf("%d\n", p_event->data.done.p_buffer[i]);
         //}
-        //p_event->data.done.p_buffer[0];
+        get_nfc_data()->bat = ADC2mV(p_event->data.done.p_buffer[0]);
     }
 }
 

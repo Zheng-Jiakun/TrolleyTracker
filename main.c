@@ -87,22 +87,24 @@ int main(void)
     //ESP_init();
     uart_init();
     nfc_init();
-
     adc_init();
 
 
     //ESP_connect_WIFI();
+    get_nfc_data()->wifi = true;
     //bsp_board_led_on(BSP_BOARD_LED_0);
 
     //ESP_connect_MQTT();
+    get_nfc_data()->mqtt = true;
     //bsp_board_led_on(BSP_BOARD_LED_1);
 
     scan_start();
+    get_nfc_data()->ble = true;
     bsp_board_led_on(BSP_BOARD_LED_2);
 
     while(1)
     {
-        //ESP_send_beacon();
+        ESP_send_beacon();
 
         bsp_board_led_invert(BSP_BOARD_LED_3);
         nrf_delay_ms(1000);

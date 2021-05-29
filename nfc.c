@@ -1,6 +1,6 @@
 #include "nfc.h"
 
-nfc_data_t nfc_data = {false, false, "192.168.1.100", 4200, MAC_ADDRESS};
+nfc_data_t nfc_data = {false, false, false, "192.168.1.100", 4200, MAC_ADDRESS};
 
 #define MAX_REC_COUNT      1     /**< Maximum records count. */
 
@@ -140,4 +140,9 @@ void nfc_service(void)
     nfc_data.ble ? "OK" : "Failed",
     nfc_data.wifi ? "OK" : "Failed");
     update_nfc_message(nfc_msg, len);
+}
+
+nfc_data_t *get_nfc_data(void)
+{
+    return &nfc_data;
 }

@@ -13,6 +13,7 @@ typedef struct
 {
     bool wifi;
     bool ble;
+    bool mqtt;
     uint8_t ip[16];
     uint16_t bat;
     const uint8_t *mac;
@@ -21,5 +22,6 @@ typedef struct
 void nfc_init(void);
 void nfc_service(void);
 void update_nfc_message(const uint8_t *text, uint16_t text_len);
+nfc_data_t *get_nfc_data(void);
 
 #endif
