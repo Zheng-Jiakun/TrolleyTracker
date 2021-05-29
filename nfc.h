@@ -21,7 +21,7 @@ typedef struct
 } nfc_data_t;
 
 void nfc_init(void);
-void nfc_service(void);
+void nfc_update(void);
 void update_nfc_message(const uint8_t *text, uint16_t text_len);
 nfc_data_t *get_nfc_data(void);
 

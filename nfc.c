@@ -1,6 +1,6 @@
 #include "nfc.h"
 
-nfc_data_t nfc_data = {false, false, false, "192.168.1.100", 4200, 0x00};
+nfc_data_t nfc_data = {false, false, false, "192.168.1.100", 0, 0x00};
 
 #define MAX_REC_COUNT      1     /**< Maximum records count. */
 
@@ -126,7 +126,7 @@ void update_nfc_message(const uint8_t *text, uint16_t text_len)
     APP_ERROR_CHECK(err_code);
 }
 
-void nfc_service(void)
+void nfc_update(void)
 {
     strcpy(nfc_data.ip, "192.168.1.100");
     nfc_data.mac = get_ble_mac();
@@ -134,7 +134,7 @@ void nfc_service(void)
     uint8_t nfc_msg[512];
     uint32_t len;
     len = sprintf(nfc_msg, 
-    "{\"MAC\":\"%s\",\"IP\":\"%s\",\"BAT\":\"%dmV\",\"BLE\":\"%s\",\"WIFI\":\"%s\"}", 
+    "{\"MAC\":\"%X\",\"IP\":\"%s\",\"BAT\":\"%dmV\",\"BLE\":\"%s\",\"WIFI\":\"%s\"}", 
     nfc_data.mac, 
     nfc_data.ip,
     nfc_data.bat, 
