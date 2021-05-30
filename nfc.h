@@ -17,7 +17,7 @@ typedef struct
     bool mqtt;
     uint8_t ip[16];
     uint16_t bat;
-    uint8_t mac;
+    uint8_t *mac;
 } nfc_data_t;
 
 void nfc_init(void);
