@@ -1,9 +1,7 @@
 <!DOCTYPE CrossStudio_Session_File>
 <session>
  <Bookmarks/>
- <Breakpoints groups="Breakpoints" active_group="Breakpoints">
-  <Exceptions set="MemManage;UsageFault_Coprocessor;UsageFault_CheckingError;UsageFault_StateError;BusFault;ExceptionEntryReturnFault;HardFault"/>
- </Breakpoints>
+ <Breakpoints groups="Breakpoints" active_group="Breakpoints"/>
  <ExecutionProfileWindow/>
  <FrameBufferWindow>
   <FrameBufferWindow bufferHeight="-1" addressSpace="" addressText="" bufferWidth="-1"/>
@@ -58,13 +56,15 @@
    <Watchpoint expression="esp_state" name="esp_state" radix="16" linenumber="0" filename="../ses"/>
    <Watchpoint expression="start_tick" name="start_tick" radix="11" linenumber="0" filename="../ses"/>
    <Watchpoint expression="beacon" name="beacon" radix="10" linenumber="0" filename="../ses"/>
-   <Watchpoint expression="m_scan" name="m_scan" radix="-1" linenumber="103" filename="../beacon_scanner.c"/>
-   <Watchpoint expression="distance" name="distance" radix="-1" linenumber="115" filename="../main.c"/>
+   <Watchpoint expression="m_scan" name="m_scan" radix="-1" linenumber="106" filename="../beacon_scanner.c"/>
+   <Watchpoint expression="distance" name="distance" radix="-1" linenumber="123" filename="../main.c"/>
    <Watchpoint expression="err_code" name="err_code" radix="16" linenumber="97" filename="../nfc.c"/>
    <Watchpoint expression="uart_rx" name="uart_rx" radix="-1" linenumber="0" filename="../ses"/>
    <Watchpoint expression="ret_code" name="ret_code" radix="-1" linenumber="183" filename="../sdk/components/softdevice/common/nrf_sdh.c"/>
-   <Watchpoint expression="p_ble_evt" name="p_ble_evt" radix="-1" linenumber="105" filename="../beacon_scanner.c"/>
+   <Watchpoint expression="p_ble_evt" name="p_ble_evt" radix="-1" linenumber="108" filename="../beacon_scanner.c"/>
    <Watchpoint expression="nfc_data" name="nfc_data" radix="-1" linenumber="0" filename="../ses"/>
+   <Watchpoint expression="ble_address" name="ble_address" radix="-1" linenumber="0" filename=""/>
+   <Watchpoint expression="ble_id" name="ble_id" radix="-1" linenumber="0" filename=""/>
   </Watches>
  </Watch1>
  <Watch2>
@@ -77,7 +77,13 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="5" y="105" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../main.c" selected="1" top="84" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="26" y="114" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../main.c" selected="1" top="96" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="283" useTextEdit="1" openedFrom="/media/geekzjk/Data/Works/TrolleyTracker/main.c" useBinaryEdit="0" left="0" path="../beacon_scanner.c" selected="0" top="264" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="62" y="2" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../nfc.c" selected="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="24" y="113" useTextEdit="1" openedFrom="/media/geekzjk/Data/Works/TrolleyTracker/main.c" useBinaryEdit="0" left="0" path="../ESP8266.c" selected="0" top="90" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="28" y="27" useTextEdit="1" openedFrom="/media/geekzjk/Data/Works/TrolleyTracker/ESP8266.c" useBinaryEdit="0" left="0" path="../ESP8266.h" selected="0" top="6" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="29" y="33" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../beacon_scanner.h" selected="0" top="15" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="15" y="23" useTextEdit="1" openedFrom="/media/geekzjk/Data/Works/TrolleyTracker/nfc.c" useBinaryEdit="0" left="0" path="../nfc.h" selected="0" top="0" codecName="Default"/>
  </Files>
  <ARMCrossStudioWindow activeProject="TrolleyTracker" fileDialogDefaultFilter="*.c;*.cpp;*.cxx;*.cc;*.h;*.hpp;*.hxx" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="/usr/share/segger_embedded_studio_for_arm_5.42a/source/thumb_crt0.s&#xa;D:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.42a/source/thumb_crt0.s" fileDialogInitialDirectory="/media/geekzjk/Data/Works/TrolleyTracker/sdk/integration/nrfx/legacy" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>

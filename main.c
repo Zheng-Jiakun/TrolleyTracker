@@ -93,6 +93,10 @@ int main(void)
     nfc_update();
 
 
+    scan_start();
+    get_nfc_data()->ble = true;
+    nfc_update();
+
     ESP_connect_WIFI();
     get_nfc_data()->wifi = true;
     nfc_update();
@@ -102,10 +106,6 @@ int main(void)
     get_nfc_data()->mqtt = true;
     nfc_update();
     //bsp_board_led_on(BSP_BOARD_LED_1);
-
-    scan_start();
-    get_nfc_data()->ble = true;
-    nfc_update();
 
     bsp_board_led_on(BSP_BOARD_LED_2);
 
