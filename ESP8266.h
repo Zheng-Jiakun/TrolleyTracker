@@ -38,9 +38,9 @@ typedef enum
 #define MQTT_PORT       "1883"
 #define MQTT_USERNAME   "mqttuser"
 #define MQTT_PASSWORD   "mqttpassword"
-#define MQTT_CLIENT_ID  "Trolley1"
+//#define MQTT_CLIENT_ID  "Trolley2"
 #define MQTT_TOPIC      "trolley"
-#define MQTT_QOS        "0"
+#define MQTT_QOS        "2"
 
 //json data key names
 //#define MAC_ADDRESS     "FD"

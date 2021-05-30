@@ -113,9 +113,9 @@ int main(void)
     {
         bsp_board_led_on(BSP_BOARD_LED_3);
         ESP_send_beacon();
-        nrf_delay_ms(ESP_TX_PERIOD-100);
+        nrf_delay_ms(100);
         bsp_board_led_off(BSP_BOARD_LED_3);
-        nrf_delay_ms(ESP_TX_PERIOD);
+        nrf_delay_ms(ESP_TX_PERIOD - 100);
 
         nfc_update();
         //idle_state_handle();

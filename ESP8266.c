@@ -55,7 +55,7 @@ void ESP_connect_WIFI(void)
 
 void ESP_connect_MQTT (void)
 {
-    printf("AT+MQTTUSERCFG=0,1,\"%s\",\"%s\",\"%s\",0,0,\"\"\r\n", MQTT_CLIENT_ID, MQTT_USERNAME, MQTT_PASSWORD);  //AT+MQTTUSERCFG=0,1,"Trolley1","aaj","isdn3002",0,0,""
+    printf("AT+MQTTUSERCFG=0,1,\"%s\",\"%s\",\"%s\",0,0,\"\"\r\n", get_ble_mac(), MQTT_USERNAME, MQTT_PASSWORD);  //AT+MQTTUSERCFG=0,1,"Trolley1","aaj","isdn3002",0,0,""
     while(strcmp(uart_get_rx_string(), ESP_RESPONSE));
     uart_clear_rx_buf();
     

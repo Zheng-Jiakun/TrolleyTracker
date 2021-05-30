@@ -128,7 +128,7 @@ void update_nfc_message(const uint8_t *text, uint16_t text_len)
 
 void nfc_update(void)
 {
-    strcpy(nfc_data.ip, "192.168.1.100");
+    sprintf(nfc_data.ip, "192.168.1.%d", get_ble_id());
     nfc_data.mac = get_ble_mac();
 
     uint8_t nfc_msg[512];

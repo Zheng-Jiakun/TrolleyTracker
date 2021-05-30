@@ -192,7 +192,7 @@ void scan_init(void)
     //err_code = nrf_ble_scan_filters_enable(&m_scan, NRF_BLE_SCAN_UUID_FILTER, true);
     //APP_ERROR_CHECK(err_code);
     sd_ble_gap_addr_get(&ble_address);
-    ble_id = ble_address.addr[0];// + ble_address.addr[5];
+    ble_id = (ble_address.addr[0] + ble_address.addr[5]) % 0xff;
     sprintf(ble_mac, "%X-%X-%X-%X-%X-%X", 
     ble_address.addr[0], 
     ble_address.addr[1], 
