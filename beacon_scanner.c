@@ -5,8 +5,8 @@
 #define APP_BLE_OBSERVER_PRIO       3                                   /**< BLE observer priority of the application. There is no need to modify this value. */
 #define APP_SOC_OBSERVER_PRIO       1                                   /**< SoC observer priority of the application. There is no need to modify this value. */
 
-#define SCAN_INTERVAL               200U                              /**< Determines scan interval in units of 0.625 millisecond. */
-#define SCAN_WINDOW                 3000U                              /**< Determines scan window in units of 0.625 millisecond. */
+#define SCAN_INTERVAL               50U                              /**< Determines scan interval in units of 0.625 millisecond. */
+#define SCAN_WINDOW                 4750U                              /**< Determines scan window in units of 0.625 millisecond. */
 #define SCAN_DURATION               0x0000                              /**< Duration of the scanning (timeout) in units of 10 milliseconds. If set to 0x0000, scanning continues until it is explicitly disabled. */
 
 ble_gap_addr_t ble_address;

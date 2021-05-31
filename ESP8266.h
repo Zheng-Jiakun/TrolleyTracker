@@ -25,7 +25,7 @@ typedef enum
 
 #define ESP_EN_PIN      5
 
-#define ESP_TX_PERIOD   2000
+#define ESP_TX_PERIOD   3000
 
 #define ESP_TIMEOUT_MS  10000UL
 #define ESP_RESPONSE    "OK\r\n"

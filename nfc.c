@@ -134,9 +134,10 @@ void nfc_update(void)
     uint8_t nfc_msg[512];
     uint32_t len;
     len = sprintf(nfc_msg, 
-    "{\"MAC\":\"%s\",\"IP\":\"%s\",\"BAT\":\"%dmV\",\"BLE\":\"%s\",\"WIFI\":\"%s\",\"MQTT\":\"%s\"}", 
+    "{\"MAC\":\"%s\",\"IP\":\"%s\",\"BAT\":\"%d%% (%dmV)\",\"BLE\":\"%s\",\"WIFI\":\"%s\",\"MQTT\":\"%s\"}", 
     nfc_data.mac, 
     nfc_data.ip,
+    (nfc_data.bat-3100)*100/(4200-3100),
     nfc_data.bat, 
     nfc_data.ble ? "OK" : "Failed",
     nfc_data.wifi ? "OK" : "Failed",
